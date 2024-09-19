@@ -1,0 +1,6 @@
+@SchoolREST_HostAddress = http://localhost:5171
+
+GET {{SchoolREST_HostAddress}}/api/teachers/
+Accept: application/json
+
+###
