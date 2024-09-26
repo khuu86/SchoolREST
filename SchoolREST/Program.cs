@@ -6,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowAll",
@@ -20,6 +23,10 @@ builder.Services.AddCors(options =>
 builder.Services.AddSingleton<TeacherRepository>(new TeacherRepository());
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 // Configure the HTTP request pipeline.
 

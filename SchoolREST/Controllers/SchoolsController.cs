@@ -107,7 +107,7 @@ namespace SchoolREST.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Teacher> Delete(int id)
         {
-            Teacher deletedTeacher = _teachersRepository.Remove(id);
+            Teacher? deletedTeacher = _teachersRepository.Remove(id);
             if (deletedTeacher == null)
             {
                 return NotFound();
