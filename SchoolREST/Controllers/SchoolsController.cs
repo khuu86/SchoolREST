@@ -14,6 +14,7 @@ namespace SchoolREST.Controllers
         public TeachersController(TeacherRepository teacherRepository)
         {
             _teachersRepository = teacherRepository;
+            _teachersRepository.AddMockTeachers();
         }
 
         // GET: api/<TeachersController>
@@ -29,6 +30,33 @@ namespace SchoolREST.Controllers
             }
             return Ok(teachers);
         }
+
+        // GET api/<TeachersController>/amount
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("amount")]
+
+        public ActionResult<IEnumerable<Teacher>> GetAmount([FromHeader] string? amount)
+        {
+            if (amount == null)
+            {
+                return BadRequest("Du har ikke udfyldt amount, men det er ok!");
+            }
+            if (int.TryParse(amount, out int amountInt))
+            {
+                var teachers = _teachersRepository.Get();
+                if (teachers == null)
+                {
+                    return NotFound("No teachers found");
+                }
+                return Ok(teachers.Take(amountInt));
+            }
+            return BadRequest("Amount header is not a number");
+
+        }
+
+
 
 
         // GET api/<TeachersController>/5
