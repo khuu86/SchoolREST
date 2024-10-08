@@ -11,6 +11,7 @@ namespace SchoolREST.Controllers
     {
         private TeacherRepository _teachersRepository;
 
+        // Constructor der initialiserer TeacherRepository og tilføjer mock data.
         public TeachersController(TeacherRepository teacherRepository)
         {
             _teachersRepository = teacherRepository;
@@ -18,6 +19,7 @@ namespace SchoolREST.Controllers
         }
 
         // GET: api/<TeachersController>
+        // Henter alle lærere.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
@@ -32,11 +34,11 @@ namespace SchoolREST.Controllers
         }
 
         // GET api/<TeachersController>/amount
+        // Henter et bestemt antal lærere baseret på "amount" headeren.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("amount")]
-
         public ActionResult<IEnumerable<Teacher>> GetAmount([FromHeader] string? amount)
         {
             if (amount == null)
@@ -53,13 +55,10 @@ namespace SchoolREST.Controllers
                 return Ok(teachers.Take(amountInt));
             }
             return BadRequest("Amount header is not a number");
-
         }
 
-
-
-
         // GET api/<TeachersController>/5
+        // Henter en lærer baseret på ID.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
@@ -74,6 +73,7 @@ namespace SchoolREST.Controllers
         }
 
         // POST api/<TeachersController>
+        // Tilføjer en ny lærer.
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
@@ -96,10 +96,10 @@ namespace SchoolREST.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         // PUT api/<TeachersController>/5
+        // Opdaterer en eksisterende lærer baseret på ID.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -130,6 +130,7 @@ namespace SchoolREST.Controllers
         }
 
         // DELETE api/<TeachersController>/5
+        // Sletter en lærer baseret på ID.
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
