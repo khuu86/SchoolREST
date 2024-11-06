@@ -23,9 +23,9 @@ namespace SchoolREST.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
-        public ActionResult<IEnumerable<Teacher>> Get()
+        public ActionResult<IEnumerable<Teacher>> Get([FromQuery] int? minSalary, [FromQuery] string? name, [FromQuery] string? sortBy)
         {
-            IEnumerable<Teacher> teachers = _teachersRepository.Get();
+            IEnumerable<Teacher> teachers = _teachersRepository.Get(minSalary, name, sortBy);
             if (teachers == null)
             {
                 return NotFound();
